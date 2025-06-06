@@ -15,6 +15,10 @@ c:\path\python.exe -m pip install -r requirements.txt (建議區域在虛擬環�
 
 uvicorn app.main:app --reload
 
+## python 部屬前建議執行:
+
+pip freeze > requirements.txt
+
 ## port:
 
 live demo: http://127.0.0.1:8000
