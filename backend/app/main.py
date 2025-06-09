@@ -1,16 +1,15 @@
-from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import JSONResponse
-from app.model import generate_caption
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
+from app import api
 
 # 載入 .env
 load_dotenv()
 
 # 取得允許的 origins 並格式化
 origins = [
-    f"http://{origin.strip()}" for origin in os.getenv("ALLOWED_ORIGINS", "").split(",")
+    f"{origin.strip()}" for origin in os.getenv("ALLOWED_ORIGINS", "").split(",")
 ]
 
 app = FastAPI()
@@ -25,11 +24,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Image Captioning API!"}
-
-@app.post("/caption")
-async def caption_image(file: UploadFile = File(...)):
-    caption = await generate_caption(file)
-    return JSONResponse({"caption": caption})
+# 註冊路由
+app.include_router(api.router)
