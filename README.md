@@ -2,7 +2,7 @@
 
 ## 建立虛擬環境:
 
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate # Linux/macOS
 或 venv\Scripts\activate # Windows
 
