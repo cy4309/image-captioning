@@ -27,6 +27,9 @@ export default function ImageUploader({ setCaption, setModalOpen }) {
       const res = await fetch(`${apiBaseUrl}/caption`, {
         method: "POST",
         body: formData,
+        // headers: {
+        //   Accept: "application/json",
+        // },
       });
       const data = await res.json();
       setCaption(data.caption);

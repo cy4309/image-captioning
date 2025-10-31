@@ -8,8 +8,10 @@ function App() {
 
   return (
     <div className="p-4 w-full h-[100dvh]">
-      <div className="max-w-[600px] m-auto">
-        <h1 className="font-bold text-2xl">AI 圖像描述 Demo</h1>
+      <div className="max-w-[600px] m-auto flex flex-col space-y-12">
+        <h1 className="font-bold text-2xl">
+          Image Captioning Lite Demo (OCR Edition)
+        </h1>
         <ImageUploader setCaption={setCaption} setModalOpen={setModalOpen} />
         {caption && (
           <Modal
