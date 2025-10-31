@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: ./backend
+    container_name: ocr-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build: ./frontend
+    container_name: ocr-frontend
+    command: ["npm", "run", "build"]
+    volumes:
+      - frontend_build:/app/dist
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - frontend_build:/usr/share/nginx/html
+
+# 👇 這段是必須的
+volumes:
+  frontend_build:
