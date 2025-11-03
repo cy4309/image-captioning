@@ -5,10 +5,10 @@ export default function ImageUploader({ setCaption, setModalOpen }) {
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState("");
   const fileInputRef = useRef(null);
-  // const apiBaseUrl =
-  //   import.meta.env.MODE === "development"
-  //     ? import.meta.env.VITE_DEV_API_URL
-  //     : import.meta.env.VITE_PROD_API_URL;
+  const apiBaseUrl =
+    import.meta.env.MODE === "development"
+      ? import.meta.env.VITE_DEV_API_URL
+      : import.meta.env.VITE_PROD_API_URL;
 
   function handleFileChange(e) {
     setFileName(e.target.files[0]?.name || "");
@@ -24,8 +24,8 @@ export default function ImageUploader({ setCaption, setModalOpen }) {
     formData.append("file", file);
 
     try {
-      // const res = await fetch(`${apiBaseUrl}/caption`, {
-      const res = await fetch(`/api/caption`, {
+      const res = await fetch(`${apiBaseUrl}/caption`, {
+        // const res = await fetch(`/api/caption`, {
         // Nginx直接/api反向代理後端，這會連到nginx.conf
         method: "POST",
         body: formData,
