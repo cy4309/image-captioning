@@ -24,11 +24,9 @@ def check_quota(ip: str, limit: int = 50):
     if usage[ip]["count"] > limit:
         raise HTTPException(status_code=429, detail="Daily limit exceeded.")
 
-
 @router.get("/")
 def read_root():
     return {"message": "Welcome to the Image Captioning API!"}
-
 
 @router.post("/caption")
 async def caption_image(request: Request, file: UploadFile = File(...)):
@@ -42,3 +40,7 @@ async def caption_image(request: Request, file: UploadFile = File(...)):
 
     caption = await generate_caption(file)
     return JSONResponse({"caption": caption})
+
+# @router.get("/health")
+# def health_check():
+#     return {"status": "ok"}

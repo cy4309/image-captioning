@@ -4,8 +4,17 @@ services:
     container_name: ocr-backend
     ports:
       - "8000:8000"
+    # expose:
+    #   - "8000"  # ✅ 內部使用，不對外開放
     env_file:
       - ./backend/.env
+    restart: always      # ✅ essential → 若 backend crash，自動重啟
+    # healthcheck:         # ⭐ optional → 確保 backend 啟動成功才被視為 healthy
+    #   test: ["CMD", "curl", "-f", "http://ocr-backend:8000/health"]  # ✅ 用 container DNS 名稱（最標準 Docker 寫法）
+    #   interval: 10s      # 每 10 秒偵測一次
+    #   timeout: 5s        # 若 5 秒沒回應視為 unhealthy
+    #   retries: 3         # 連續 3 次失敗才判定為 unhealthy
+    #   start_period: 10s  # 容器啟動後 10 秒內不計入檢查
 
   frontend:
     build: ./frontend
@@ -19,10 +28,16 @@ services:
       context: .
       dockerfile: ./nginx/Dockerfile
     ports:
-      - "8080:80"
+      - "8080:80" # 左邊主機的 port，右邊容器內 Nginx 的 port
     depends_on:
       - backend
       - frontend
+    # depends_on:
+    #   backend:
+    #     condition: service_healthy   # 🔥 advanced → nginx 會等 backend 健康才啟動
+    #   frontend:
+    #     condition: service_completed_successfully
+    restart: always   # ✅ essential → nginx 掛掉會自動重啟
     volumes:
       - frontend_build:/usr/share/nginx/html
 

@@ -7,12 +7,12 @@ from app import api
 # 載入 .env
 load_dotenv()
 
+app = FastAPI()
+
 # 取得允許的 origins 並格式化
 origins = [
     f"{origin.strip()}" for origin in os.getenv("ALLOWED_ORIGINS", "").split(",")
 ]
-
-app = FastAPI()
 
 # 加入這段來允許 CORS
 app.add_middleware(
