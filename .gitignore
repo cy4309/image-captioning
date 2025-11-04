@@ -1,39 +1,57 @@
-# === Logs ===
-logs
+# =========================
+# ✅ GENERAL
+# =========================
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# === Node.js ===
-node_modules/
-dist/
-dist-ssr/
-*.local
+# =========================
+# ✅ FRONTEND (Vite / React)
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
 
-# === Python ===
-__pycache__/
-*.py[cod]
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
+# =========================
+# ✅ BACKEND (FastAPI / Python)
+# =========================
+backend/__pycache__/
+backend/*.py[cod]
+backend/*.so
+backend/*.egg
+backend/*.egg-info/
+backend/dist/
+backend/build/
 
-# Virtual environment
-venv/
-env/
-ENV/
-.venv/
-.python-version
+# Virtual envs
+backend/venv/
+backend/.venv/
+backend/env/
+backend/ENV/
+backend/.python-version
 
-# === Environment variables ===
-.env
-.env.*
+# Backend environment files
+backend/.env
 
-# === IDE/editor settings ===
+# =========================
+# ✅ DOCKER / COMPOSE
+# =========================
+# Local-only docker artifacts
+docker-compose.override.yml
+*.pid
+
+# =========================
+# ✅ EDITOR / SYSTEM
+# =========================
 .vscode/
 !.vscode/extensions.json
 .idea/
@@ -44,13 +62,16 @@ ENV/
 *.sw?
 *.swp
 
-# === System files ===
-.DS_Store
-Thumbs.db
-
-# === Test/output folders ===
+# =========================
+# ✅ TEST / COVERAGE
+# =========================
 .coverage
 htmlcov/
 .cache/
 .tox/
 .pytest_cache/
+
+# =========================
+# OPTIONAL → If using local build cache
+# =========================
+frontend/.parcel-cache

@@ -1,0 +1,50 @@
+name: Deploy Frontend & Backend
+
+on:
+  push:
+    branches:
+      - main # 只有推上 main 才會觸發部署
+  workflow_dispatch: # 允許手動觸發
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ 取得專案原始碼
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ 安裝 Node.js 以建置前端
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3️⃣ 前端安裝依賴 & Lint & Build
+      - name: 📦 Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: ✅ Run frontend lint
+        working-directory: ./frontend
+        run: npm run lint --if-present
+
+      - name: 🛠️ Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # 4️⃣ 部署 Vercel（前端）
+      - name: ▲ Deploy to Vercel
+        run: |
+          npm install -g vercel
+          vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }} --cwd=frontend
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # 5️⃣ 通知 Render 部署後端
+      - name: 🔄 Trigger Render backend deploy
+        run: |
+          echo "Triggering Render deploy..."
+          curl -s -o /dev/null -w "%{http_code}" -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
