@@ -1,57 +1,50 @@
-# =========================
-# ✅ GENERAL
-# =========================
-.DS_Store
-Thumbs.db
-
-# Logs
-logs/
-*.log
+# === Node / Frontend ===
+node_modules/
+dist/
+dist-ssr/
+*.local
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
+.env.local
+.env.development.local
+.env.production.local
 
-# =========================
-# ✅ FRONTEND (Vite / React)
-# =========================
-frontend/node_modules/
-frontend/dist/
-frontend/.env
-frontend/.env.local
-frontend/.env.*.local
+# === Python / Backend ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.build/
+dist/
+venv/
+.venv/
+env/
+ENV/
+.python-version
 
-# =========================
-# ✅ BACKEND (FastAPI / Python)
-# =========================
-backend/__pycache__/
-backend/*.py[cod]
-backend/*.so
-backend/*.egg
-backend/*.egg-info/
-backend/dist/
-backend/build/
+# === Environment Variables ===
+.env
+.env.*
+!.env.example   # allow template env file
 
-# Virtual envs
-backend/venv/
-backend/.venv/
-backend/env/
-backend/ENV/
-backend/.python-version
-
-# Backend environment files
-backend/.env
-
-# =========================
-# ✅ DOCKER / COMPOSE
-# =========================
-# Local-only docker artifacts
+# === Docker ===
+# image layers & local volumes
+docker-data/
+*.tar
+# prevent accidentally committing local docker-compose overrides
 docker-compose.override.yml
-*.pid
 
-# =========================
-# ✅ EDITOR / SYSTEM
-# =========================
+# === Nginx / Build Output ===
+*.log
+nginx/logs/
+nginx/cache/
+
+# === IDE / Editors ===
 .vscode/
 !.vscode/extensions.json
 .idea/
@@ -59,19 +52,22 @@ docker-compose.override.yml
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
 *.swp
+*.sw?
+*.iml
 
-# =========================
-# ✅ TEST / COVERAGE
-# =========================
+# === System files ===
+.DS_Store
+Thumbs.db
+
+# === Test / Coverage ===
+coverage/
 .coverage
 htmlcov/
-.cache/
-.tox/
 .pytest_cache/
+.tox/
+.cache/
 
-# =========================
-# OPTIONAL → If using local build cache
-# =========================
-frontend/.parcel-cache
+# === Misc ===
+*.pid
+*.seed

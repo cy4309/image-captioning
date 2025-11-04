@@ -1,6 +1,8 @@
 # 🧠 Image Captioning OCR Project
 
-這是一個使用 **FastAPI + API Ninjas OCR API + React (Vite)** 的影像文字辨識與描述專案。  
+使用 **FastAPI + React (Vite) + API Ninjas OCR API + Docker** 打造的影像文字辨識全端專案。  
+本專案同時支援 **本地開發 (Python / Node)** 與 **Docker Compose 一鍵啟動**，並整合 **GitHub Actions + Vercel + Render** 完成自動化部署流程。
+
 專案支援兩種啟動方式：
 
 1. Docker Compose 一鍵啟動（適合部署與多人協作）
@@ -21,9 +23,10 @@ docker compose up
 或在有更新程式後：
 docker compose up --build
 
-👉 啟動後可於：
-http://localhost:8080 — 前端頁面 + OCR 功能
-http://localhost:8000 — FastAPI 後端（內部用）
+👉 使用中功能對應 Port：
+前端 (Nginx) http://localhost:8080
+FastAPI 後端 http://localhost:8000
+Swagger Docs http://localhost:8000/docs
 
 停止服務：
 docker compose down
@@ -35,24 +38,7 @@ docker compose down -v
 docker ps
 docker compose logs -f backend
 docker compose logs -f nginx
-
-📁 專案結構
-image-captioning/
-├── backend/ # FastAPI 後端
-│ ├── main.py
-│ ├── model.py
-│ ├── requirements.txt
-│ └── .env
-│
-├── frontend/ # Vite + React 前端
-│ ├── package.json
-│ └── vite.config.js
-│
-├── nginx/ # Nginx 反向代理 + 靜態檔案服務
-│ ├── Dockerfile
-│ └── nginx.conf
-│
-└── docker-compose.yml
+docker ps
 
 🚀 常用指令摘要
 啟動服務： docker compose up
@@ -73,6 +59,8 @@ Frontend (Nginx): http://localhost:8080
 Backend (FastAPI): http://localhost:8000
 Swagger Docs: http://localhost:8000/docs
 
+---
+
 # ⚙️ 執行順序（Python 本地方式）
 
 ## 建立虛擬環境
@@ -84,13 +72,7 @@ venv\Scripts\activate # Windows
 安裝依賴
 pip install -r requirements.txt
 
-# ⚠️ 若要避免汙染 global 環境，請使用虛擬環境
-
-# Windows 可用:
-
-# c:\path\python.exe -m pip install -r requirements.txt
-
-# 並於 VS Code Ctrl+Shift+P → Python: Select Interpreter 選擇 venv
+## ⚠️ 若要避免汙染 global 環境，請使用虛擬環境
 
 啟動 FastAPI：
 uvicorn app.main:app --reload
