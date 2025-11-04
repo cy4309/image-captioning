@@ -9,7 +9,7 @@ services:
     env_file:
       - ./backend/.env
     restart: always      # ✅ essential → 若 backend crash，自動重啟
-    # healthcheck:         # ⭐ optional → 確保 backend 啟動成功才被視為 healthy
+    # healthcheck:         # ⭐ optional → 確保 backend 啟動成功才被視為 healthy，先註解因為免費render, vercel都不會自動讀執行
     #   test: ["CMD", "curl", "-f", "http://ocr-backend:8000/health"]  # ✅ 用 container DNS 名稱（最標準 Docker 寫法）
     #   interval: 10s      # 每 10 秒偵測一次
     #   timeout: 5s        # 若 5 秒沒回應視為 unhealthy

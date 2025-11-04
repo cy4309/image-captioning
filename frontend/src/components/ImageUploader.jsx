@@ -25,8 +25,7 @@ export default function ImageUploader({ setCaption, setModalOpen }) {
 
     try {
       const res = await fetch(`${apiBaseUrl}/caption`, {
-        // const res = await fetch(`/api/caption`, {
-        // Nginx直接/api反向代理後端，這會連到nginx.conf
+        // 本地Nginx直接/api反向代理後端，這會連到nginx.conf，不能寫死，因為線上vite不支援反向代理
         method: "POST",
         body: formData,
         // headers: {

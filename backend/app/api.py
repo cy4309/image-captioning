@@ -41,6 +41,6 @@ async def caption_image(request: Request, file: UploadFile = File(...)):
     caption = await generate_caption(file)
     return JSONResponse({"caption": caption})
 
-# @router.get("/health")
-# def health_check():
-#     return {"status": "ok"}
+@router.get("/health", include_in_schema=False)
+def health_check():
+    return {"ok": True}
