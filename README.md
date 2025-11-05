@@ -1,12 +1,21 @@
 # 🧠 Image Captioning OCR Project
 
-使用 **FastAPI + React (Vite) + API Ninjas OCR API + Docker** 打造的影像文字辨識全端專案。  
-本專案同時支援 **本地開發 (Python / Node)** 與 **Docker Compose 一鍵啟動**，並整合 **GitHub Actions + Vercel + Render** 完成自動化部署流程。
+FastAPI + React (Vite) + API Ninjas OCR API + Docker + CI/CD + MSW Mock Testing
+支援三種開發模式，具備完整前後端部署、自動化測試與 mock API 開發流程。
+
+---
 
 專案支援兩種啟動方式：
 
 1. Docker Compose 一鍵啟動（適合部署與多人協作）
 2. 傳統 Python 啟動（適合開發階段）
+
+---
+
+專案模式一覽
+| **正常開發模式** | `npm run dev` | 直接打後端 API（需要後端啟動 / render prod） |
+| **本地 Mock 模式** | `npm run dev:mock` | 前端不依賴後端，用 MSW 回傳假資料 |
+| **測試模式** | `npm run test` | 使用 Vitest + MSW (Node) 測試前端 API |
 
 ---
 
