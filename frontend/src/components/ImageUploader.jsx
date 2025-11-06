@@ -47,29 +47,42 @@ export default function ImageUploader({ setCaption, setModalOpen }) {
   }
 
   return (
-    <form
-      className="gap-y-4 w-full h-full flex flex-col"
-      onSubmit={handleSubmit}
-    >
-      <div className="flex items-center gap-2">
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          className="hidden"
-        />
-        <BaseButton type="button" onClick={() => fileInputRef.current.click()}>
-          選擇圖片
+    <>
+      {/* ✅ 滿版 Loading Overlay */}
+      {loading && (
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/30 backdrop-blur-sm">
+          <div className="w-12 h-12 border-4 border-gray-300 border-t-gray-700 rounded-full animate-spin"></div>
+          <p className="mt-4">🚀 後端伺服器啟動與圖片分析中，請稍候...</p>
+        </div>
+      )}
+
+      <form
+        className="gap-y-4 w-full h-full flex flex-col"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex items-center gap-2">
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <BaseButton
+            type="button"
+            onClick={() => fileInputRef.current.click()}
+          >
+            選擇圖片
+          </BaseButton>
+          <span className="text-gray-500 text-sm truncate max-w-[200px]">
+            {fileName || "尚未選擇檔案"}
+          </span>
+        </div>
+        <BaseButton type="submit" disabled={loading}>
+          {loading ? "分析中..." : "送出圖片"}
         </BaseButton>
-        <span className="text-gray-500 text-sm truncate max-w-[200px]">
-          {fileName || "尚未選擇檔案"}
-        </span>
-      </div>
-      <BaseButton type="submit" disabled={loading}>
-        {loading ? "分析中..." : "送出圖片"}
-      </BaseButton>
-    </form>
+      </form>
+    </>
   );
 }
