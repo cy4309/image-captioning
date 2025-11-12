@@ -2,10 +2,8 @@ services:
   backend:
     build: ./backend
     container_name: ocr-backend
-    ports:
-      - "8000:8000"
-    # expose:
-    #   - "8000"  # ✅ 內部使用，不對外開放
+    expose:
+      - "8000"  # ✅ 內部使用，不對外開放
     env_file:
       - ./backend/.env
     restart: always      # ✅ essential → 若 backend crash，自動重啟
@@ -27,6 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
+    container_name: ocr-nginx
     ports:
       - "8080:80" # 左邊主機的 port，右邊容器內 Nginx 的 port
     depends_on:
